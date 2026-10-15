@@ -57,7 +57,20 @@ and the Plasma theme that served as its visual reference.
 > * The icon theme and the Plasma theme are used as they are; their compatibility was not tested beyond what is said in
 >   [CHANGES.md](CHANGES.md).
 
-![Preview of eleven-kde](eleven-kde/preview.png)
+## Preview
+
+![Dolphin with eleven-kde and the Eleven icon theme, next to Plasma's application launcher](images/start_and_dolphin.png)
+
+*Dolphin with eleven-kde and Eleven-icon-theme. The panel and the application launcher are Plasma's own and are not
+changed by this project.*
+
+![System Settings, Application Style page with eleven-kde selected](images/settings.png)
+
+*System Settings > Application Style, with eleven-kde selected next to Breeze, Fusion and Windows 9x.*
+
+![KDE Partition Manager with eleven-kde](images/kde_part_man.png)
+
+*KDE Partition Manager.*
 
 ## What is in this repository
 
