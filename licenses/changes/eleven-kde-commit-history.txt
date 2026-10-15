@@ -1,0 +1,15 @@
+de64c95 2026-10-01 Claude Sonnet 5.5: Fix rename editor showing the old name and doubled chevron on menu push buttons
+a71cd4c 2026-10-01 Claude Sonnet 5.5: Draw KDE Partition Manager partitions in their file system color
+4d79b35 2026-09-30 MarioS271: docs: add preview screenshot to readme
+174e93a 2026-09-29 Claude Sonnet 5.5: QML overlay: whole org.kde.desktop module again, gray network list via a KCM copy
+ee293a4 2026-09-29 Claude Sonnet 5.5: qmltest: print the Qt Quick Controls style in use
+84b3ac6 2026-09-29 Claude Sonnet 5.5: QML overlay: back to the private submodule only
+2359c13 2026-09-29 Claude Sonnet 5.5: Add reinstall script, add --keep-style to the uninstall script
+e1ba3be 2026-09-29 Claude Sonnet 5.5: QML overlay: menus, Kirigami tabs and Plasma list items in gray
+b4e79a2 2026-09-29 Claude Sonnet 5.5: Taller tabs, no accelerator underlines in menus, gray selection in Prism dialogs
+887631d 2026-09-29 Claude Sonnet 5.5: Add install and uninstall scripts, document them and a KDE Connect hang
+8ad39b3 2026-09-29 Claude Sonnet 5.5: Gray row selection in all item views, separators in combo box popups
+1da92ae 2026-09-29 Claude Sonnet 5.5: README: document that Flatpak Qt applications do not use the style
+232c627 2026-09-29 Claude Sonnet 5.5: Add CLAUDE.md
+4c4c343 2026-09-29 Claude Sonnet 5.5: Fix blue highlights in Konsole: menu bar items and checked buttons
+38fae1d 2026-09-29 Claude Sonnet 5.5: Initial commit: eleven-kde, a Windows 11 (WinUI 3) inspired style for Qt widgets on KDE Plasma

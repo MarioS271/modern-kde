@@ -1,0 +1,3 @@
+Eleven-icon-theme upstream HEAD: 3e0a65fb4d69c4493347ac08fd5c51922898dc95  remote: https://github.com/mjkim0727/Eleven-icon-theme
+Win11Nord-kde upstream HEAD: 76a2993f92b50002295e7f9782c743eac77d9795  remote: git@github.com:yeyushengfan258/Win11Nord-kde.git
+eleven-kde upstream HEAD: de64c95ad0c8cb955c9d1576572db0d963092009  remote: git@github.com:MarioS271/eleven-kde.git

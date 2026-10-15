@@ -1,0 +1,10 @@
+modified:
+src/Eleven-Dark/16/symbolic/emblems/emblem-music-symbolic.svg
+src/Eleven/16/symbolic/emblems/emblem-music-symbolic.svg
+
+new files:
+src/Eleven/16/emblems/emblem-music-symbolic.svg
+src/Eleven/22/emblems/emblem-music-symbolic.svg
+src/Eleven/22/symbolic/emblems/emblem-music-symbolic.svg
+src/Eleven/24/emblems/emblem-music-symbolic.svg
+src/Eleven/24/symbolic/emblems/emblem-music-symbolic.svg

@@ -1,0 +1,14 @@
+<svg width="16" height="16" enable-background="new" version="1.1" xmlns="http://www.w3.org/2000/svg"><style type="text/css" id="current-color-scheme">.ColorScheme-Text { color:#363636; }</style>
+ <g class="ColorScheme-Text" fill="currentColor">
+  <g class="ColorScheme-Text" stroke-width=".70711">
+   <rect class="ColorScheme-Text" x="4" y="4" width="9" height="1"/>
+   <rect class="ColorScheme-Text" x="4" y="8" width="9" height="1"/>
+   <rect class="ColorScheme-Text" x="4" y="12" width="9" height="1"/>
+  </g>
+  <g class="ColorScheme-Text">
+   <rect class="ColorScheme-Text" x="2" y="4" width="1" height="1"/>
+   <rect class="ColorScheme-Text" x="2" y="8" width="1" height="1"/>
+   <rect class="ColorScheme-Text" x="2" y="12" width="1" height="1"/>
+  </g>
+ </g>
+</svg>

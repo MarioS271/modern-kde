@@ -1,0 +1,14 @@
+ .gitignore                                      |   1 +
+ qml/org/kde/desktop/private/SwitchIndicator.qml |  41 +++++----
+ src/elevenstyle.cpp                             | 110 +++++++++++++++++-------
+ src/elevenstyle.h                               |   1 +
+ tools/gallery.cpp                               |  46 +++++++++-
+ tools/make-qml-overlay.sh                       |   4 +-
+ 6 files changed, 150 insertions(+), 53 deletions(-)
+ M .gitignore
+ M qml/org/kde/desktop/private/SwitchIndicator.qml
+ M src/elevenstyle.cpp
+ M src/elevenstyle.h
+MM tools/gallery.cpp
+ M tools/make-qml-overlay.sh
+?? tools/build-deb.sh
