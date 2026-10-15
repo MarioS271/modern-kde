@@ -1,6 +1,6 @@
 # modern-kde
 
-A Windows 11 (WinUI 3) inspired look for Qt 6 applications on KDE Plasma: the **eleven-kde** widget style with an
+A WinUI 3 / GTK 4 inspired look for Qt 6 applications on KDE Plasma: the **eleven-kde** widget style with an
 optional QML overlay for System Settings and other QtQuick applications, together with the icon theme it is used with
 and the Plasma theme that served as its visual reference.
 
@@ -18,6 +18,8 @@ and the Plasma theme that served as its visual reference.
 > * **mjkim0727 and the contributors of Eleven-icon-theme**, successor of Cobalt-icons, which builds on Segoe Fluent,
 >   Fluent-icon-theme and Cobalt-icons: the icon theme in this repository.
 > * **Microsoft**, whose WinUI 3 / Fluent design the look imitates. No Microsoft source code is used.
+> * **The GNOME project**, whose GTK 4 / libadwaita design (rounder corners, flat controls) is the second inspiration.
+>   Only the look is taken from it, no GNOME code is used.
 
 > ## This project is vibecoded
 >
@@ -75,7 +77,8 @@ created; `licenses/changes/eleven-kde-commit-history.txt` keeps the commit list 
 
 ## eleven-kde: what it is (and how it works)
 
-`eleven-kde` is a `QProxyStyle` that wraps Breeze. It is **not** a from-scratch style and **not** a Plasma global theme
+`eleven-kde` is a `QProxyStyle` that wraps Breeze. Its look is **WinUI 3 / GTK 4 inspired**: WinUI 3 for the control shapes
+and translucent fills, GTK 4 for the rounder corners and the flat, borderless buttons. It is **not** a from-scratch style and **not** a Plasma global theme
 (no colors, cursors, window decoration or Plasma panel styling):
 
 * The drawing code is a port of Qt's own `QWindows11Style` (`qtbase`, `src/plugins/styles/modernwindows`), which
