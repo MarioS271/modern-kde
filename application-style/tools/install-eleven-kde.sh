@@ -4,22 +4,24 @@
 #
 # Builds eleven-kde (if needed) and installs everything: the style plugin into the Qt plugin directory of the system Qt
 # (root is needed for that, sudo is asked only for the install step), the QML overlay for System Settings and other
-# QtQuick apps, and it sets the Application Style to eleven-kde.
-# Usage: tools/install-eleven-kde.sh [--no-style] [--no-qml-overlay] [--dry-run]
-#   --no-style        do not set the Application Style (choose it yourself in System Settings)
-#   --no-qml-overlay  do not install the QML overlay (see tools/install-qml-overlay.sh)
-#   --dry-run         only print what would be done
+# QtQuick apps, the color scheme ElevenDark (color-schemes/), and it sets the Application Style to eleven-kde.
+# Usage: tools/install-eleven-kde.sh [--no-style] [--no-qml-overlay] [--no-color-scheme] [--dry-run]
+#   --no-style         do not set the Application Style (choose it yourself in System Settings)
+#   --no-qml-overlay   do not install the QML overlay (see tools/install-qml-overlay.sh)
+#   --no-color-scheme  do not install the color scheme ElevenDark (it is only installed, never applied)
+#   --dry-run          only print what would be done
 set -eu
 
 root=$(cd "$(dirname "$0")/.." && pwd)
 build=$root/build
-dry=0; style=1; overlay=1
+dry=0; style=1; overlay=1; scheme=1
 for arg in "$@"; do
     case "$arg" in
         --dry-run) dry=1 ;;
         --no-style) style=0 ;;
         --no-qml-overlay) overlay=0 ;;
-        -h|--help) sed -n '5,11p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+        --no-color-scheme) scheme=0 ;;
+        -h|--help) sed -n '5,13p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
         *) echo "unknown option: $arg" >&2; exit 2 ;;
     esac
 done
@@ -57,6 +59,13 @@ fi
 if [ "$overlay" -eq 1 ]; then
     say "installing the QML overlay"
     run "$root/tools/install-qml-overlay.sh"
+fi
+
+if [ "$scheme" -eq 1 ]; then
+    schemes=${XDG_DATA_HOME:-$HOME/.local/share}/color-schemes
+    say "installing the color scheme ElevenDark into $schemes"
+    run mkdir -p "$schemes"
+    run cp "$root/color-schemes/ElevenDark.colors" "$schemes/"
 fi
 
 if [ "$style" -eq 1 ]; then

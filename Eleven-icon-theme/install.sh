@@ -1,16 +1,12 @@
 #!/bin/sh
 
-ICONDIR="~/.local/share/icons"
+cd "$(dirname "$0")" || exit 1
 
-if [ -d "$ICONDIR" ]; then
-    cp -r src/Eleven ~/.local/share/icons;
-    cp -r src/Eleven-Dark ~/.local/share/icons;
-    cp -r src/Eleven-Light ~/.local/share/icons;
-else
-    mkdir ~/.local/share/icons;
-    cp -r src/Eleven ~/.local/share/icons;
-    cp -r src/Eleven-Dark ~/.local/share/icons;
-    cp -r src/Eleven-Light ~/.local/share/icons;
-fi
+ICONDIR="$HOME/.local/share/icons"
+
+mkdir -p "$ICONDIR"
+cp -r src/Eleven "$ICONDIR"
+cp -r src/Eleven-Dark "$ICONDIR"
+cp -r src/Eleven-Light "$ICONDIR"
 
 exit 0

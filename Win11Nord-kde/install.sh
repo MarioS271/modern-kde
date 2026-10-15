@@ -3,6 +3,10 @@
 SRC_DIR=$(cd $(dirname $0) && pwd)
 ROOT_UID=0
 
+# --plasma-theme-only: install only the Plasma desktop theme (plasma/desktoptheme), nothing else
+PLASMA_ONLY=0
+[[ "$1" == "--plasma-theme-only" ]] && PLASMA_ONLY=1
+
 # Destination directory
 if [ "$UID" -eq "$ROOT_UID" ]; then
   AURORAE_DIR="/usr/share/aurorae/themes"
@@ -24,19 +28,23 @@ fi
 
 THEME_NAME=Win11Nord
 
-[[ ! -d ${AURORAE_DIR} ]] && mkdir -p ${AURORAE_DIR}
-[[ ! -d ${SCHEMES_DIR} ]] && mkdir -p ${SCHEMES_DIR}
 [[ ! -d ${PLASMA_DIR} ]] && mkdir -p ${PLASMA_DIR}
-[[ ! -d ${LOOKFEEL_DIR} ]] && mkdir -p ${LOOKFEEL_DIR}
-[[ ! -d ${KVANTUM_DIR} ]] && mkdir -p ${KVANTUM_DIR}
-[[ ! -d ${WALLPAPER_DIR} ]] && mkdir -p ${WALLPAPER_DIR}
+if [[ ${PLASMA_ONLY} -eq 0 ]]; then
+  [[ ! -d ${AURORAE_DIR} ]] && mkdir -p ${AURORAE_DIR}
+  [[ ! -d ${SCHEMES_DIR} ]] && mkdir -p ${SCHEMES_DIR}
+  [[ ! -d ${LOOKFEEL_DIR} ]] && mkdir -p ${LOOKFEEL_DIR}
+  [[ ! -d ${KVANTUM_DIR} ]] && mkdir -p ${KVANTUM_DIR}
+  [[ ! -d ${WALLPAPER_DIR} ]] && mkdir -p ${WALLPAPER_DIR}
+fi
 
 install() {
   local name=${1}
 
-  cp -r ${SRC_DIR}/aurorae/*                                                         ${AURORAE_DIR}
-  cp -r ${SRC_DIR}/color-schemes/*.colors                                            ${SCHEMES_DIR}
-  cp -r ${SRC_DIR}/Kvantum/*                                                         ${KVANTUM_DIR}
+  if [[ ${PLASMA_ONLY} -eq 0 ]]; then
+    cp -r ${SRC_DIR}/aurorae/*                                                       ${AURORAE_DIR}
+    cp -r ${SRC_DIR}/color-schemes/*.colors                                          ${SCHEMES_DIR}
+    cp -r ${SRC_DIR}/Kvantum/*                                                       ${KVANTUM_DIR}
+  fi
   cp -r ${SRC_DIR}/plasma/desktoptheme/*                                             ${PLASMA_DIR}
 
   # The theme intentionally ships no panel-background: Plasma then falls back to
@@ -45,8 +53,10 @@ install() {
     rm -f "${PLASMA_DIR}/Windows11-Nord/${variant}/panel-background.svg" \
           "${PLASMA_DIR}/Windows11-Nord/${variant}/panel-background.svgz"
   done
-  cp -r ${SRC_DIR}/plasma/look-and-feel/*                                            ${LOOKFEEL_DIR}
-  cp -r ${SRC_DIR}/wallpaper/*                                                       ${WALLPAPER_DIR}
+  if [[ ${PLASMA_ONLY} -eq 0 ]]; then
+    cp -r ${SRC_DIR}/plasma/look-and-feel/*                                          ${LOOKFEEL_DIR}
+    cp -r ${SRC_DIR}/wallpaper/*                                                     ${WALLPAPER_DIR}
+  fi
 }
 
 echo "Installing '${THEME_NAME} kde themes'..."

@@ -5,9 +5,10 @@
 # Removes everything eleven-kde put outside the source tree:
 #   - the style plugin (system Qt plugin directory and ~/.local/lib/qt6/plugins)
 #   - the QML overlay, its Plasma login environment script and the network settings copy
+#   - the color scheme ElevenDark, and the color scheme setting if it still points to it (switched back to BreezeDark)
 #   - the Application Style setting, if it still points to eleven-kde (switched back to Breeze)
 # Usage: tools/uninstall-eleven-kde.sh [--keep-style] [--dry-run]
-#   --keep-style   do not touch the Application Style setting
+#   --keep-style   do not touch the Application Style and color scheme settings
 # Removing the plugin from the system directory needs root; the script asks sudo only for that file.
 set -u
 
@@ -59,12 +60,23 @@ kcm_copy=${XDG_DATA_HOME:-$HOME/.local/share}/kcm_networkmanagement
 [ -e "$kcm_copy/.eleven-kde" ] && remove_dir "$kcm_copy"
 remove_file "${XDG_CONFIG_HOME:-$HOME/.config}/plasma-workspace/env/eleven-kde-qml.sh"
 
-# --- Application Style setting ---
+# --- color scheme ---
+remove_file "${XDG_DATA_HOME:-$HOME/.local/share}/color-schemes/ElevenDark.colors"
+
+# --- Application Style and color scheme settings ---
 if [ "$keep_style" -eq 0 ] && command -v kreadconfig6 >/dev/null 2>&1; then
     current=$(kreadconfig6 --file kdeglobals --group KDE --key widgetStyle)
     if [ "$current" = "eleven-kde" ]; then
         say "Application Style is still eleven-kde, switching back to Breeze"
         run kwriteconfig6 --file kdeglobals --group KDE --key widgetStyle Breeze
+        removed=1
+    fi
+    scheme=$(kreadconfig6 --file kdeglobals --group General --key ColorScheme)
+    if [ "$scheme" = "ElevenDark" ]; then
+        say "color scheme is still ElevenDark, switching back to BreezeDark"
+        run kwriteconfig6 --file kdeglobals --group General --key ColorScheme BreezeDark
+        run kwriteconfig6 --file kdeglobals --group General --key ColorSchemeHash --delete
+        run kwriteconfig6 --file kdeglobals --group KDE --key ColorSchemeHash --delete
         removed=1
     fi
 fi

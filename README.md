@@ -12,7 +12,8 @@ and the Plasma theme that served as its visual reference.
 >   the whole style. The drawing code here is a port of their code, and many comments are still theirs.
 > * **The KDE community**: the Breeze style (everything the port does not draw, and all behavior, comes from it),
 >   `qqc2-desktop-style` (Marco Martin, Tanbir Jishan and many others; the QML patches are modified copies of their
->   files), `plasma-nm` (Jan Grulich and others), and the Breeze SDDM theme.
+>   files), `plasma-nm` (Jan Grulich and others), the Breeze SDDM theme, and the Breeze Dark color scheme that `ElevenDark` is a
+>   copy of (Andrew Lake, Marco Martin, Nate Graham, Noah Davis, Neal Gompa, David Redondo, Thomas Duckworth).
 > * **yeyushengfan258**: [Win11Nord-kde](https://github.com/yeyushengfan258/Win11Nord-kde), the Plasma theme this look
 >   is modeled on. Its Kvantum theme is by **Vince Liuice**, based on KvAdapta by **Tsu Jan**.
 > * **mjkim0727 and the contributors of Eleven-icon-theme**, successor of Cobalt-icons, which builds on Segoe Fluent,
@@ -34,13 +35,13 @@ and the Plasma theme that served as its visual reference.
 >
 > **This was made on exactly one machine and works there. Anywhere else, assume it does not, until you have tried.**
 >
-> | Part         | What it was made and looked at with                                                                                                                                          |
-> |--------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-> | System       | Ubuntu / Kubuntu 26.04 LTS, x86_64, Plasma 6.6, KDE Frameworks 6.24, Wayland session                                                                                         |
-> | Qt           | **exactly 6.10.2** (`6.10.2+dfsg-7`); the plugin uses private Qt headers and symbols                                                                                         |
-> | Color scheme | one dark color scheme (`ElevenDark`); light schemes and high contrast were **not** looked at                                                                                 |
-> | Applications | Dolphin (including properties dialog and location bar), Okular, System Settings, Konsole, Prism Launcher, KDE Partition Manager and the demo programs in `eleven-kde/tools/` |
-> | QML overlay  | replaces files of `qml6-module-org-kde-desktop` found under the hard-coded path `/usr/lib/x86_64-linux-gnu/qt6/qml`                                                          |
+> | Part         | What it was made and looked at with                                                                                                                                                 |
+> |--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+> | System       | Ubuntu / Kubuntu 26.04 LTS, x86_64, Plasma 6.6, KDE Frameworks 6.24, Wayland session                                                                                                |
+> | Qt           | **exactly 6.10.2** (`6.10.2+dfsg-7`); the plugin uses private Qt headers and symbols                                                                                                |
+> | Color scheme | one dark color scheme (`ElevenDark`); light schemes and high contrast were **not** looked at                                                                                        |
+> | Applications | Dolphin (including properties dialog and location bar), Okular, System Settings, Konsole, Prism Launcher, KDE Partition Manager and the demo programs in `application-style/tools/` |
+> | QML overlay  | replaces files of `qml6-module-org-kde-desktop` found under the hard-coded path `/usr/lib/x86_64-linux-gnu/qt6/qml`                                                                 |
 >
 > What that means in practice:
 >
@@ -74,21 +75,25 @@ changed by this project.*
 
 ## What is in this repository
 
-Three separate projects, side by side. Each keeps its own license, see [licenses/](licenses/README.md).
+Three separate projects, side by side, plus two scripts at the top that install them together. Each project keeps its own
+license, see [licenses/](licenses/README.md).
 
-| Folder               | What it is                                                            | Origin                                                              |
-|----------------------|-----------------------------------------------------------------------|---------------------------------------------------------------------|
-| `eleven-kde/`        | the Qt widget style and QML overlay (the actual subject of this repo) | this project, derived from Qt, KDE Breeze and qqc2-desktop-style    |
-| `Eleven-icon-theme/` | Windows 11 style icon theme                                           | third party (mjkim0727 and others), **modified**, see CHANGES.md    |
-| `Win11Nord-kde/`     | Plasma theme: color scheme, window decoration, Kvantum, SDDM          | third party (yeyushengfan258), **lightly modified**, reference only |
+| Folder               | What it is                                                                                                                        | Origin                                                                                                            |
+|----------------------|-----------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| `application-style/` | the eleven-kde Qt widget style, QML overlay and color scheme ElevenDark (the actual subject of this repo; formerly `eleven-kde/`) | this project, derived from Qt, KDE Breeze and qqc2-desktop-style                                                  |
+| `Eleven-icon-theme/` | Windows 11 style icon theme                                                                                                       | third party (mjkim0727 and others), **modified**, see CHANGES.md                                                  |
+| `Win11Nord-kde/`     | Plasma theme: color scheme, window decoration, Kvantum, SDDM                                                                      | third party (yeyushengfan258), **lightly modified**, visual reference; only its Plasma desktop theme is installed |
 
 Also: [`CHANGES.md`](CHANGES.md) says what was changed in the third-party folders, and [`licenses/`](licenses/) has every
 license text.
 
 The folders were separate git repositories before. Their old histories were dropped when this repository was
-created; `licenses/changes/eleven-kde-commit-history.txt` keeps the commit list of `eleven-kde`.
+created; `licenses/changes/eleven-kde-commit-history.txt` keeps the commit list of `eleven-kde` (the folder was called
+`eleven-kde/` then; the style itself is still named `eleven-kde`).
 
 ## eleven-kde: what it is (and how it works)
+
+The folder is `application-style/`, the style is called `eleven-kde` (the name you pick in System Settings).
 
 `eleven-kde` is a `QProxyStyle` that wraps Breeze. Its look is **WinUI 3 / GTK 4 inspired**: WinUI 3 for the control shapes
 and translucent fills, GTK 4 for the rounder corners and the flat, borderless buttons. It is **not** a from-scratch style and **not** a Plasma global theme
@@ -108,7 +113,7 @@ and translucent fills, GTK 4 for the rounder corners and the flat, borderless bu
 ## The QML patches
 
 KDE's Kirigami and QtQuick Controls (switches, list highlights and popups in System Settings) are drawn by QML with
-the color scheme and **do not use the widget style**. So `eleven-kde/qml/` replaces a few components of the
+the color scheme and **do not use the widget style**. So `application-style/qml/` replaces a few components of the
 `org.kde.desktop` module:
 
 | File                                                    | Change                                                                      |
@@ -173,9 +178,42 @@ it is built against the host's Qt and uses Qt private APIs, which must match the
 Such applications keep looking like Breeze. This was observed with Qalculate! (Qt) from Flathub. Other bundled formats
 (Snap, AppImages that ship their own Qt) are expected to behave the same way but were not checked.
 
+## Install everything
+
+```
+./install.sh               # needs a terminal: it asks sudo once, for the style plugin
+./uninstall.sh
+./install.sh --dry-run     # show what would be done, change nothing (the same for uninstall.sh)
+```
+
+`install.sh` installs exactly these three groups and **nothing else**, by calling the install script of each module:
+
+| What                                                                  | Script it calls                                            |
+|-----------------------------------------------------------------------|------------------------------------------------------------|
+| Plasma desktop theme `Windows11-Nord`                                 | `Win11Nord-kde/install.sh --plasma-theme-only`             |
+| the `eleven-kde` Qt style, its QML overlay, color scheme `ElevenDark` | `application-style/tools/install-eleven-kde.sh --no-style` |
+| icon themes `Eleven`, `Eleven-Dark`, `Eleven-Light`                   | `Eleven-icon-theme/install.sh`                             |
+
+It does **not** switch anything on: afterwards choose them in System Settings (Application Style: eleven-kde, Colors:
+Eleven Dark, Plasma Style: Windows11-Nord, Icons: Eleven) and log out and in again. It also does not install the rest of
+Win11Nord-kde (window decoration, Kvantum theme, look-and-feel, SDDM, wallpapers). Run it as your normal user, not as
+root: everything but the style plugin goes into your home directory.
+
+`uninstall.sh` removes the same things with the uninstall script of each module, and switches settings that still point
+to something it removed back to Breeze, BreezeDark, the default Plasma style and the `breeze` icons (`--keep-settings`
+leaves all settings alone). The module scripts were changed a little to make this possible, see
+[CHANGES.md](CHANGES.md): `Win11Nord-kde` got a `--plasma-theme-only` option for both scripts, the icon theme's script was
+fixed and got an uninstall script, and the eleven-kde scripts handle the color scheme.
+
+Both scripts were tested in a throw-away home directory with `sudo` replaced by a stub, not with the real system
+plugin directory. Whether they work on your machine is the same open question as everything else here.
+
+The sections below describe `application-style/` on its own (build, try without installing, install, uninstall). They are
+what `install.sh` uses for the style.
+
 ## Build
 
-Run these in `eleven-kde/`. Dependencies (Ubuntu/Kubuntu package names): `cmake`, `ninja-build`, a C++20 compiler,
+Run these in `application-style/`. Dependencies (Ubuntu/Kubuntu package names): `cmake`, `ninja-build`, a C++20 compiler,
 `qt6-base-dev`, `qt6-base-private-dev`. Optional for the demo tools: `qt6-declarative-dev`, `libkf6widgetsaddons-dev`.
 
 ```
@@ -202,6 +240,7 @@ QML_IMPORT_PATH=$PWD/build/qml-overlay QT_PLUGIN_PATH=$PWD/build/plugins systems
 ```
 tools/install-eleven-kde.sh                     # plugin + QML overlay + Application Style
 tools/install-eleven-kde.sh --no-qml-overlay    # plugin + Application Style
+tools/install-eleven-kde.sh --no-color-scheme   # do not install the color scheme ElevenDark
 tools/install-eleven-kde.sh --no-style          # plugin + QML overlay, pick the style yourself in System Settings
 tools/install-eleven-kde.sh --dry-run           # show what would be done, change nothing
 ```
@@ -240,28 +279,29 @@ lists in [CHANGES.md](CHANGES.md). Its README lists Segoe Fluent as one of its s
 
 `Win11Nord-kde/` is a third-party Plasma theme (color scheme, Aurorae window decoration, Plasma desktop theme,
 look-and-feel, Kvantum theme, SDDM themes, wallpapers). It is in this repository as the **visual reference** for
-`eleven-kde` and is not needed to use it. One script was edited, one script's file mode changed and three files were removed, see [CHANGES.md](CHANGES.md). Its own
+`eleven-kde`; the top-level `install.sh` installs only its Plasma desktop theme `Windows11-Nord`, and `eleven-kde` does not
+need any of it. One script was edited, one script's file mode changed and three files were removed, see [CHANGES.md](CHANGES.md). Its own
 `README.md` and `install.sh` describe it and were not tested as part of this repository.
 
 ## Development
 
-* `eleven-kde/tools/gallery.cpp`: a widget gallery. `GALLERY_OUT=/tmp/x QT_PLUGIN_PATH=build/plugins build/gallery -style eleven-kde`
+* `application-style/tools/gallery.cpp`: a widget gallery. `GALLERY_OUT=/tmp/x QT_PLUGIN_PATH=build/plugins build/gallery -style eleven-kde`
   renders the window, a menu and popups to PNGs without needing a screenshot of your desktop. `GALLERY_DARK=1` uses a
   dark palette and `GALLERY_HOVER=1` fakes hover on a few buttons.
-* `eleven-kde/tools/qmltest.cpp`: a QML window with a few controls for the overlay.
-* The style lives in `eleven-kde/src/elevenstyle.cpp`. It still follows the structure of Qt's original. See
-  `eleven-kde/CLAUDE.md` for the notes the AI assistant works from.
+* `application-style/tools/qmltest.cpp`: a QML window with a few controls for the overlay.
+* The style lives in `application-style/src/elevenstyle.cpp`. It still follows the structure of Qt's original. See
+  `application-style/CLAUDE.md` for the notes the AI assistant works from.
 
 ## License
 
 This is a collection, not one work: **each folder keeps its own license** and the Qt-derived parts of `eleven-kde` are
 under the license of Qt. The short version:
 
-| Folder               | License                                                                                               |
-|----------------------|-------------------------------------------------------------------------------------------------------|
-| `eleven-kde/`        | LGPL-3.0-only (Qt-derived parts: Qt's LGPL-3.0 / GPL-2.0 / GPL-3.0 choice; QML files: KDE's licenses) |
-| `Eleven-icon-theme/` | GPL-3.0, as shipped by upstream (open question about Segoe Fluent, see `licenses/`)                   |
-| `Win11Nord-kde/`     | GPL-3.0, as shipped by upstream (SDDM QML files: LGPL-2.0-or-later)                                   |
+| Folder               | License                                                                                                                                                        |
+|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `application-style/` | LGPL-3.0-only (Qt-derived parts: Qt's LGPL-3.0 / GPL-2.0 / GPL-3.0 choice; QML files: KDE's licenses; color scheme: LGPL-2.0-or-later, from KDE's Breeze Dark) |
+| `Eleven-icon-theme/` | GPL-3.0, as shipped by upstream (open question about Segoe Fluent, see `licenses/`)                                                                            |
+| `Win11Nord-kde/`     | GPL-3.0, as shipped by upstream (SDDM QML files: LGPL-2.0-or-later)                                                                                            |
 
 All texts and a file-level table are in [`licenses/`](licenses/README.md). Names of Microsoft, Qt and KDE products are
 used descriptively only. "Windows", "Windows 11", "WinUI" and "Fluent" are trademarks of Microsoft Corporation. This

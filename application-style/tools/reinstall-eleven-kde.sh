@@ -4,8 +4,8 @@
 #
 # Uninstalls eleven-kde completely and installs it again from the current source tree
 # (tools/uninstall-eleven-kde.sh, then tools/install-eleven-kde.sh).
-# Usage: tools/reinstall-eleven-kde.sh [--no-style] [--no-qml-overlay] [--dry-run]
-#   --no-style, --no-qml-overlay   passed to the install step, see tools/install-eleven-kde.sh
+# Usage: tools/reinstall-eleven-kde.sh [--no-style] [--no-qml-overlay] [--no-color-scheme] [--dry-run]
+#   --no-style, --no-qml-overlay, --no-color-scheme   passed to the install step, see tools/install-eleven-kde.sh
 #                                  (--no-style also keeps the current Application Style during the uninstall step)
 #   --dry-run                      passed to both steps: only print what would be done
 set -eu
@@ -16,7 +16,7 @@ for arg in "$@"; do
     case "$arg" in
         --dry-run) uninstall_args="$uninstall_args --dry-run" ;;
         --no-style) uninstall_args="$uninstall_args --keep-style" ;;  # do not reset a style you chose yourself
-        --no-qml-overlay) ;;
+        --no-qml-overlay|--no-color-scheme) ;;
         -h|--help) sed -n '5,10p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
         *) echo "unknown option: $arg" >&2; exit 2 ;;
     esac
