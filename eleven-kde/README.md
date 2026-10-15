@@ -8,7 +8,11 @@ gray hover highlights, thin accent underline on text fields, no blue focus recta
 > audited the code line by line, there is no test suite, and it was only looked at in a handful of applications
 > (see "Status"). It also depends on Qt private APIs. Use it at your own risk and expect rough edges.
 
-![Preview of eleven-kde](preview.png)
+![Dolphin with eleven-kde and the Eleven icon theme, next to Plasma's application launcher](../images/start_and_dolphin.png)
+
+![System Settings, Application Style page with eleven-kde selected](../images/settings.png)
+
+![KDE Partition Manager with eleven-kde](../images/kde_part_man.png)
 
 ## What it is (and how it works)
 
