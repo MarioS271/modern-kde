@@ -195,11 +195,11 @@ static void drawGlyph(QPainter *p, const QRectF &rect, Icon icon);
 static int glyphAdvance(const QFont &font);
 
 template <typename R, typename P, typename B>
-static inline void drawRoundedRect(QPainter *p, R &&rect, P &&pen, B &&brush)
+static inline void drawRoundedRect(QPainter *p, R &&rect, P &&pen, B &&brush, qreal radius = secondLevelRoundingRadius)
 {
     p->setPen(pen);
     p->setBrush(brush);
-    p->drawRoundedRect(rect, secondLevelRoundingRadius, secondLevelRoundingRadius);
+    p->drawRoundedRect(rect, radius, radius);
 }
 
 // Menus and popups: take the window colour of the current colour scheme (so they match the app
@@ -977,8 +977,9 @@ void ElevenStyle::drawPrimitive(PrimitiveElement element, const QStyleOption *op
             rect.moveCenter(QRectF(option->rect).center());
             const QPointF center = rect.center();
 
+            // check boxes keep the original 4px corners; everything else uses the rounder secondLevelRoundingRadius
             drawRoundedRect(painter, rect.adjusted(0.5, 0.5, -0.5, -0.5), borderPenControlAlt(option),
-                            controlFillBrush(option, ControlType::ControlAlt));
+                            controlFillBrush(option, ControlType::ControlAlt), 4);
 
             if (isOn) {
                 QFont f(assetFont);
